@@ -106,6 +106,9 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
       return GooglePlayProductDetails.fromSkuDetails(skuDetailWrapper);
     }).toList();
 
+    productDetailsList.forEach((ele)=>{_productIdsToConsume.add(ele.id)});
+
+
     final Set<String> successIDS = productDetailsList
         .map((ProductDetails productDetails) => productDetails.id)
         .toSet();
@@ -145,9 +148,9 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
   @override
   Future<bool> buyConsumable(
       {required PurchaseParam purchaseParam, bool autoConsume = true}) {
-    if (autoConsume) {
-      _productIdsToConsume.add(purchaseParam.productDetails.id);
-    }
+    // if (autoConsume) {
+    //   _productIdsToConsume.add(purchaseParam.productDetails.id);
+    // }
     return buyNonConsumable(purchaseParam: purchaseParam);
   }
 
@@ -243,7 +246,7 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
         details: billingResult.debugMessage,
       );
     }
-    _productIdsToConsume.remove(purchaseDetails.productID);
+    // _productIdsToConsume.remove(purchaseDetails.productID);
 
     return purchaseDetails;
   }
